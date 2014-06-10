@@ -2,9 +2,9 @@
 -- documentation, see http://haskell.org/cabal/users-guide/
 
 name:                pipes-wai
-version:             3.0.0
+version:             3.0.2
 synopsis:            A port of wai-conduit for the pipes ecosystem
--- description:         
+description:         A light-weight wrapper around Network.Wai to provide easy pipes support.
 homepage:            http://github.com/brewtown/pipes-wai
 license:             MIT
 license-file:        LICENSE

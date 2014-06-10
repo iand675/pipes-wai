@@ -1,7 +1,8 @@
--- | A light-weight wrapper around @Network.Wai@ to provide easy conduit support.
+-- | A light-weight wrapper around @Network.Wai@ to provide easy pipes support.
 module Pipes.Wai
-    ( -- * Request body
-      producerRequestBody
+    ( Flush(..)
+      -- * Request body
+    , producerRequestBody
       -- * Response body
     , responseProducer
     , responseRawProducer
@@ -52,7 +53,7 @@ responseProducer s hs src = responseStream s hs $ \send flush ->
     Chunk b -> lift $ send b
     Flush -> lift $ flush
 
--- | Create a raw response using a @Source@ and @Sink@ to represent the input
+-- | Create a raw response using a @Producer@ and @Consumer@ to represent the input
 -- and output, respectively.
 --
 -- Since 3.0.0
