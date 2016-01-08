@@ -42,6 +42,7 @@ producerRequestBody req =
         unless (S.null bs) $ do
             yield bs
             loop
+{-# INLINEABLE producerRequestBody #-}
 
 -- | Create an HTTP response out of a @Producer@.
 --
@@ -51,6 +52,7 @@ responseProducer s hs src = responseStream s hs $ \send flush ->
   runEffect $ for src $ \mbuilder -> case mbuilder of
     Chunk b -> lift $ send b
     Flush -> lift flush
+{-# INLINEABLE responseProducer #-}
 
 -- | Create a raw response using a @Producer@ and @Consumer@ to represent the input
 -- and output, respectively.
@@ -71,3 +73,4 @@ responseRawProducer app = responseRaw app'
             yield bs
             src
         sink = (await >>= liftIO . send) >> sink
+{-# INLINEABLE responseRawProducer #-}
