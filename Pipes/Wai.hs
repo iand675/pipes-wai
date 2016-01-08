@@ -19,7 +19,6 @@ import Control.Monad (unless)
 import Network.HTTP.Types
 import Blaze.ByteString.Builder (Builder)
 import Data.IORef
-import qualified Pipes.Prelude as CL
 
 data Flush a = Chunk a | Flush
              deriving (Eq, Ord, Show)
@@ -51,7 +50,7 @@ responseProducer :: Status -> ResponseHeaders -> Producer (Flush Builder) IO () 
 responseProducer s hs src = responseStream s hs $ \send flush ->
   runEffect $ for src $ \mbuilder -> case mbuilder of
     Chunk b -> lift $ send b
-    Flush -> lift $ flush
+    Flush -> lift flush
 
 -- | Create a raw response using a @Producer@ and @Consumer@ to represent the input
 -- and output, respectively.
